@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import App from "./App";
 import VideoList from "./components/VideoList";
+import VideoDetail from "./components/VideoDetail";
 
 export default function AppRoutes() {
   return (
@@ -14,7 +15,7 @@ export default function AppRoutes() {
 
         {/* ── Protected routes ── */}
         <Route path="/upload" element={<div>Upload page — coming soon</div>} />
-        <Route path="/videos/:id" element={<div>Video player — coming soon</div>} />
+        <Route path="/videos/:id" element={<VideoDetail />} />
         <Route path="/channel/:username" element={<div>Channel page — coming soon</div>} />
         <Route path="/password-change" element={<div>Password change — coming soon</div>} />
 
