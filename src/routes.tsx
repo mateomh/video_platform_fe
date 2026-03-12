@@ -2,6 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import App from "./App";
 import VideoList from "./components/VideoList";
 import VideoDetail from "./components/VideoDetail";
+import VideoUpload from "./components/VideoUpload";
+import VideoChannel from "./components/VideoChannel";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 export default function AppRoutes() {
   return (
@@ -10,13 +14,13 @@ export default function AppRoutes() {
 
         {/* ── Public routes ── */}
         <Route path="/" element={<VideoList />} />
-        <Route path="/login" element={<div>Login page — coming soon</div>} />
-        <Route path="/register" element={<div>Register page — coming soon</div>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* ── Protected routes ── */}
-        <Route path="/upload" element={<div>Upload page — coming soon</div>} />
+        <Route path="/upload" element={<VideoUpload />} />
         <Route path="/videos/:id" element={<VideoDetail />} />
-        <Route path="/channel/:username" element={<div>Channel page — coming soon</div>} />
+        <Route path="/channel/:username" element={<VideoChannel />} />
         <Route path="/password-change" element={<div>Password change — coming soon</div>} />
 
         {/* ── 404 ── */}
