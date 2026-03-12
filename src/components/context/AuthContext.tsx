@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
+import { apiUrl } from "../../config/api";
 
 export interface User {
   id: number;
@@ -35,7 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    fetch("/auth/me/", {
+    fetch(apiUrl("/accounts/me"), {
       headers: { Authorization: `Token ${token}` },
     })
       .then((res) => (res.ok ? res.json() : null))
@@ -45,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [token]);
 
   const login = async (username: string, password: string): Promise<void> => {
-    const res = await fetch("/accounts/token", {
+    const res = await fetch(apiUrl("/accounts/token/"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -73,5 +74,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// Export context so useAuth can consume it
 export { AuthContext };

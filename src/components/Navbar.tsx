@@ -12,7 +12,7 @@ export default function Navbar() {
   const handleLogout = async (): Promise<void> => {
     await logout();
     addMessage("You have been logged out.", "success");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
