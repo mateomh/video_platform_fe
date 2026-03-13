@@ -63,7 +63,6 @@ export default function VideoList() {
 
 function VideoCard({ video }: { video: Video }) {
   return (
-    // Mirrors: <a href="{% url 'videos:detail' video.id %}" class="video-card">
     <Link to={`/videos/${video.id}`} className="video-card">
       <div className="video-thumbnail">
         <img

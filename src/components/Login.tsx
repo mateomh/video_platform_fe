@@ -6,13 +6,6 @@ import "../assets/stylesheets/auth.css";
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-/**
- * Login — replaces login.html
- *
- * DRF endpoint expected:
- *   POST /api/auth/login/ → { token: string }
- *   body: { username: string, password: string }
- */
 export default function Login() {
   const { login } = useAuth();
   const { addMessage } = useMessages();
@@ -45,7 +38,6 @@ export default function Login() {
 
       <div className="auth-container">
 
-        {/* Header — mirrors <div class="auth-header"> */}
         <div className="auth-header">
           <h1>Welcome Back</h1>
           <p>Sign in to continue with YouTube Clone</p>
@@ -53,7 +45,6 @@ export default function Login() {
 
         <form className="auth-form" onSubmit={handleSubmit}>
 
-          {/* Errors — mirrors {% if form.errors %} */}
           {errors.length > 0 && (
             <ul className="error-list">
               {errors.map((err, i) => (
@@ -62,7 +53,6 @@ export default function Login() {
             </ul>
           )}
 
-          {/* Username */}
           <div className="form-group">
             <label htmlFor="id_username">Username</label>
             <input
@@ -77,7 +67,6 @@ export default function Login() {
             />
           </div>
 
-          {/* Password */}
           <div className="form-group">
             <label htmlFor="id_password">Password</label>
             <input
@@ -96,7 +85,6 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Footer — mirrors <div class="auth-footer"> */}
         <div className="auth-footer">
           Don't have an account? <Link to="/register">Create One</Link>
         </div>

@@ -22,8 +22,7 @@ interface Video {
   dislikes: number;
   created_at: string;
   display_thumbnail_url: string;
-  streaming_url: string;
-  optimized_url: string;
+  video_url: string;
   user: VideoOwner;
 }
 
@@ -69,8 +68,6 @@ export default function VideoDetail() {
       })
       .then((data: VideoDetailResponse) => {
         const { user_vote, ...videoData } = data;
-        console.log("DATAAAAAAA");
-        console.log(videoData)
         setVideo(videoData);
         setUserVote(user_vote);
         setLikes(videoData.likes);
@@ -80,33 +77,30 @@ export default function VideoDetail() {
       .finally(() => setIsLoading(false));
   }, [id, token]);
 
-  // ── HLS player setup — mirrors the {% block extra_js %} script ─────────────
-
   useEffect(() => {
     if (!video || !videoRef.current) return;
 
     const videoEl = videoRef.current;
-    const { streaming_url, optimized_url } = video;
+    const { video_url } = video;
 
     const setupHls = async () => {
-    //   // Dynamically import hls.js — replaces the CDN <script> tag
       const { default: Hls } = await import("hls.js");
 
       if (Hls.isSupported()) {
         const hls = new Hls({ startLevel: -1, capLevelToPlayerSize: true });
         hlsRef.current = hls;
-        hls.loadSource(streaming_url);
+        hls.loadSource(video_url);
         hls.attachMedia(videoEl);
         hls.on(Hls.Events.ERROR, (_event: unknown, data: { fatal: boolean }) => {
           if (data.fatal) {
-            videoEl.src = optimized_url;
+            videoEl.src = video_url;
           }
         });
       } else if (videoEl.canPlayType("application/vnd.apple.mpegurl")) {
         // Native HLS (Safari)
-        videoEl.src = streaming_url;
+        videoEl.src = video_url;
       } else {
-        videoEl.src = optimized_url;
+        videoEl.src = video_url;
       }
     };
 
@@ -120,8 +114,6 @@ export default function VideoDetail() {
       }
     };
   }, [video]);
-
-  // ── Vote handler — replaces vote() JS function ────────────────────────────
 
   const handleVote = async (voteType: "like" | "dislike"): Promise<void> => {
     if (!isAuthenticated) {
@@ -145,8 +137,6 @@ export default function VideoDetail() {
     setDislikes(data.dislikes);
     setUserVote(data.user_vote);
   };
-
-  // ── Delete handler — replaces deleteVideo() JS function ──────────────────
 
   const handleDelete = async (): Promise<void> => {
     if (!confirm("Are you sure you want to delete this?")) return;

@@ -15,13 +15,6 @@ interface Video {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-/**
- * Channel — replaces channel.html
- *
- * DRF endpoint expected:
- *   GET /api/channel/:username/ → Video[]
- *   Authorization: Token <token>
- */
 export default function VideoChannel() {
   const { username } = useParams<{ username: string }>();
   const { token } = useAuth();
@@ -52,7 +45,7 @@ export default function VideoChannel() {
     <>
       <title>{username} - YouTube Clone</title>
 
-      {/* Channel header — mirrors <div class="channel-header"> */}
+
       <div className="channel-header">
         <div className="channel-header-avatar">
           {username?.slice(0, 1).toUpperCase()}
@@ -60,7 +53,6 @@ export default function VideoChannel() {
         <h1>{username}</h1>
       </div>
 
-      {/* Video grid — mirrors {% if videos %} */}
       {videos.length > 0 ? (
         <div className="video-grid">
           {videos.map((video) => (
@@ -85,7 +77,6 @@ export default function VideoChannel() {
           ))}
         </div>
       ) : (
-        // Mirrors: {% else %} empty state
         <div className="empty-state">
           <span className="empty-icon">🎬</span>
           <h2>No Videos Yet</h2>
