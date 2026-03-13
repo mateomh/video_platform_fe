@@ -121,7 +121,7 @@ export default function VideoDetail() {
       return;
     }
 
-    const res = await fetch(apiUrl(`/videos/${id}/vote/`), {
+    const res = await fetch(apiUrl(`/videos/${id}/vote`), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
